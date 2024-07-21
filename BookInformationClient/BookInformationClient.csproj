@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="google\api\annotations.proto" />
+    <None Remove="google\api\http.proto" />
+    <None Remove="Protos\bookinformation.proto" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.27.2" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.64.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.65.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="Protos\bookinformation.proto" GrpcServices="Client" />
+		<Protobuf Include="google\api\annotations.proto" />
+		<Protobuf Include="google\api\http.proto" />
+	</ItemGroup>
+
+
+
+</Project>

@@ -1,0 +1,114 @@
+﻿syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+option csharp_namespace = "BookInformationService";
+
+package bookinformationgrpcservice;
+
+// The BookInformation gRPC service definition.
+service BookInformationGrpc {
+    // Retrieves book information by ID.
+    // Sample: GET /v1/books/1
+    rpc GetBookInformation (GetBookInformationRequest) returns (GetBookInformationResponse) {
+        option (google.api.http) = {
+            get: "/v1/books/{id}"
+        };
+    }
+
+    // Retrieves a list of all book informations.
+    // Sample: GET /v1/books
+    rpc ListBookInformation (ListBookInformationRequest) returns (ListBookInformationResponse) {
+        option (google.api.http) = {
+            get: "/v1/books"
+        };
+    }
+
+    // Creates a new book information record.
+    // Sample: POST /v1/books
+    // {
+    //   "title": "New Book",
+    //   "stock": 100
+    // }
+    rpc CreateBookInformation (CreateBookInformationRequest) returns (CreateBookInformationResponse) {
+        option (google.api.http) = {
+            post: "/v1/books"
+            body: "*"
+        };
+    }
+
+    // Updates an existing book information record.
+    // Sample: PATCH /v1/books/1
+    // {
+    //   "title": "Updated Book",
+    //   "stock": 120
+    // }
+    rpc UpdateBookInformation (UpdateBookInformationRequest) returns (UpdateBookInformationResponse) {
+        option (google.api.http) = {
+            patch: "/v1/books/{id}"
+            body: "*"
+        };
+    }
+
+    // Deletes a book information record by ID.
+    // Sample: DELETE /v1/books/1
+    rpc DeleteBookInformation (DeleteBookInformationRequest) returns (DeleteBookInformationResponse) {
+        option (google.api.http) = {
+            delete: "/v1/books/{id}"
+        };
+    }
+}
+
+// Request message for GetBookInformation RPC.
+message GetBookInformationRequest {
+    int32 id = 1; // The ID of the book information to retrieve.
+}
+
+// Response message for GetBookInformation RPC.
+message GetBookInformationResponse {
+    int32 id = 1; // The ID of the book.
+    string title = 2; // The title of the book.
+    int32 stock = 3; // The total stock of the book.
+    int32 available = 4; // The number of available copies of the book.
+}
+
+// Request message for ListBookInformations RPC.
+message ListBookInformationRequest {}
+
+// Response message for ListBookInformations RPC.
+message ListBookInformationResponse {
+    repeated GetBookInformationResponse bookinformations = 1; // A list of book information records.
+}
+
+// Request message for CreateBookInformation RPC.
+message CreateBookInformationRequest {
+    string title = 1; // The title of the new book.
+    int32 stock = 2; // The total stock of the new book.
+}
+
+// Response message for CreateBookInformation RPC.
+message CreateBookInformationResponse {
+    int32 id = 1; // The ID of the newly created book.
+}
+
+// Request message for UpdateBookInformation RPC.
+message UpdateBookInformationRequest {
+    int32 id = 1; // The ID of the book to update.
+    string title = 2; // The new title of the book.
+    int32 stock = 3; // The new total stock of the book.
+}
+
+// Response message for UpdateBookInformation RPC.
+message UpdateBookInformationResponse {
+    int32 id = 1; // The ID of the updated book.
+}
+
+// Request message for DeleteBookInformation RPC.
+message DeleteBookInformationRequest {
+    int32 id = 1; // The ID of the book to delete.
+}
+
+// Response message for DeleteBookInformation RPC.
+message DeleteBookInformationResponse {
+    int32 id = 1; // The ID of the deleted book.
+}
